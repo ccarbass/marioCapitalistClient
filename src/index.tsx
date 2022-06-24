@@ -8,7 +8,7 @@ import { UserProvider } from "./context/UserContext";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://capitalistback.azurewebsites.net/graphql",
   cache: new InMemoryCache(),
 });
 
