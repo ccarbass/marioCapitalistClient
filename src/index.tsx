@@ -1,28 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { WorldProvider } from './context/WorldContext';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { UserProvider } from "./context/UserContext";
 
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
-  cache: new InMemoryCache()
+  uri: "http://localhost:4000/graphql",
+  cache: new InMemoryCache(),
 });
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <WorldProvider>
+      <UserProvider>
         <App />
-      </WorldProvider>
+      </UserProvider>
     </ApolloProvider>
   </React.StrictMode>
 );

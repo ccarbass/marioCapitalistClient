@@ -1,14 +1,29 @@
-import * as React from "react";
-import ProgressBar from "@ramonak/react-progress-bar";
-type Props = {};
+import React from "react";
+import PropTypes from "prop-types";
 
-const ProgressBarProduct = () => {
+type Props = {
+  completed: number;
+  color: string;
+  animation: number;
+  height: number | string;
+};
+
+const Progress = ({ completed, color, animation, height }: Props) => {
+
   return (
-    <div className="w-full bg-gray rounded-full h-6 dark:bg-gray-700">
-      <div className="bg-blue h-6 text-left leading-none rounded-full w-1/2">
-        <img src="./asset/coin.png" className="h-6 w-6" />
-      </div>
+    <div className={"progressbar-container"}>
+      <div
+        className="progressbar-progress"
+        style={{
+          backgroundColor: color,
+          width: completed + "%",
+          transition: `width ${animation}ms`,
+          height: height,
+          borderRadius: '20px'
+        }}
+      ></div>
     </div>
   );
 };
-export default ProgressBarProduct;
+
+export default Progress;

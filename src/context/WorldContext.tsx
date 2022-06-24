@@ -1,6 +1,7 @@
-import React, { useState, useEffect, createContext, ReactNode } from 'react';
-import { gql, useQuery } from '@apollo/client';
-import { World } from '../world';
+import React, { useState, useEffect, createContext, ReactNode } from "react";
+import { gql, useQuery } from "@apollo/client";
+import { World } from "../world";
+import { WorldInit } from "./defaultValue";
 
 const GET_WORLD = gql`
   query ExampleQuery {
@@ -24,7 +25,7 @@ const GET_WORLD = gql`
         quantite
         timeleft
         managerUnlocked
-        paliers {
+        palliers {
           name
           logo
           seuil
@@ -75,61 +76,73 @@ const GET_WORLD = gql`
 `;
 
 type WorldContextType = {
-  username: String;
   world: World | null;
   error: any;
   loading: any;
-  onChangeUser: (username: String) => void;
+  setMoney: (money: number) => void;
+  setScore: (score: number) => void;
+
 };
 
 type Props = {
   children: ReactNode;
+  username: string;
 };
 
 const WorldContextDefaultValue: WorldContextType = {
-  username: '',
   world: null,
   error: null,
   loading: true,
-  onChangeUser: (username) => {}
+  setMoney: (money: number) => {},
+  setScore: (score: number) => {},
 };
 
 export const WorldContext = createContext<WorldContextType>(
   WorldContextDefaultValue
 );
 
-export const WorldProvider = ({ children }: Props) => {
-  const [username, setUsername] = useState<String>('');
+export const WorldProvider = ({ children, username }: Props) => {
   const [world, setWorld] = useState<World | null>(null);
 
-  const handleUsernameChange = (username: String) => {
-    setUsername(username);
-    localStorage.setItem('username', username.toString());
+  const { loading, error, data, refetch } = useQuery(GET_WORLD, {
+    context: {
+      headers: { "x-user": username },
+    },
+  });
+
+  const handleSetMoney = (money: number) => {
+    if (world) {
+      let newWorld = {...world};
+      newWorld.money = money;
+      setWorld(newWorld);
+    }
   };
 
-  const { loading, error, data, refetch } = useQuery(GET_WORLD);
-
-  useEffect(() => {
-    const usernameStored = localStorage.getItem('username');
-    if (usernameStored) setUsername(usernameStored);
-  }, []);
-
+  const handleSetScore = (score: number) => {
+    if (world) {
+      let newWorld = {...world};
+      newWorld.score = score;
+      setWorld(newWorld);
+    }
+  };
+ 
   useEffect(() => {
     if (!loading && !error) {
-      setWorld(data.getWorld);
+      if (username !== "") {
+        console.log(data);
+        setWorld(data.getWorld);
+      }
     }
-  }, [error, loading, data]);
+  }, [error, loading, data, username]);
 
   return (
     <WorldContext.Provider
       value={{
-        username: username,
         world: world,
         error: error,
         loading: loading,
-        onChangeUser: (username) => {
-          handleUsernameChange(username);
-        }
+        setMoney: handleSetMoney,
+        setScore: handleSetScore,
       }}
     >
       {children}

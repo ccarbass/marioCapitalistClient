@@ -1,2 +1,3 @@
 import ProgressBarProduct from "./progressBar";
-export {ProgressBarProduct}
+import MyProgrssBar from "./MyprogressBar"
+export {ProgressBarProduct, MyProgrssBar}

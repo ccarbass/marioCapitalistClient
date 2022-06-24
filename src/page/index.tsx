@@ -1,3 +1,3 @@
-import Components from "./components/components";
+import Main from "./Main";
 
-export {Components}
+export {Main}

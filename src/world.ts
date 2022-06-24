@@ -1,50 +1,43 @@
-export class World {
-  name: string = '';
-  logo: string = '';
-  money: number = 0;
-  score: number = 0;
-  totalangels: number = 0;
-  activeangels: number = 0;
-  angelbonus: number = 0;
-  lastupdate: string = '';
-  products: Product[];
-  allunlocks: Pallier[];
-  upgrades: Pallier[];
-  angelupgrades: Pallier[];
-  managers: Pallier[];
-  constructor() {
-    this.products = [];
-    this.managers = [];
-    this.upgrades = [];
-    this.angelupgrades = [];
-    this.allunlocks = [];
-  }
+export type World ={
+  name: string ,
+  logo: string ,
+  money: number,
+  score: number,
+  totalangels: number,
+  activeangels: number,
+  angelbonus: number,
+  lastupdate: string ,
+  products: Product[],
+  allunlocks: Pallier[],
+  upgrades: Pallier[],
+  angelupgrades: Pallier[],
+  managers: Pallier[],
+ 
 }
 
-export class Product {
-  id: number = 0;
-  name: string = '';
-  logo: string = '';
-  cout: number = 0;
-  croissance: number = 0;
-  revenu: number = 0;
-  vitesse: number = 0;
-  quantite: number = 0;
-  timeleft: number = 0;
-  lastupdate: number = 0;
-  managerUnlocked: boolean = false;
-  palliers: Pallier[];
-  constructor() {
-    this.palliers = [];
-  }
+export type Product= {
+  id: number,
+  name: string ,
+  logo: string ,
+  cout: number,
+  croissance: number,
+  revenu: number,
+  vitesse: number,
+  quantite: number,
+  timeleft: number,
+  lastupdate: number,
+  managerUnlocked: boolean,
+  palliers: Pallier[],
+
 }
 
-export class Pallier {
-  name: string = '';
-  logo: string = '';
-  seuil: number = 0;
-  idcible: number = 0;
-  ratio: number = 0;
-  typeratio: string = '';
-  unlocked: boolean = false;
+export type Pallier ={
+  name: string ,
+  logo: string ,
+  seuil: number,
+  idcible: number,
+  ratio: number,
+  typeratio: string ,
+  unlocked: boolean,
 }
+
